@@ -1,4 +1,5 @@
 ''' This file contains entities of tasks application '''
+from datetime import datetime
 
 
 class Task:
@@ -14,6 +15,9 @@ class Task:
         self.__status: int = None
         self.__organization: int = None
 
+        self.__startdate: datetime = None
+        self.__deadline: datetime = None
+
     @classmethod
     def set_params(cls, **kwargs) -> 'Task':
         ''' Set the parameters of the task object '''
@@ -23,6 +27,8 @@ class Task:
         cls.__assignee: int = kwargs.pop('assignee')
         cls.__status: int = kwargs.pop('status')
         cls.__organization: int = kwargs.pop('organization')
+        cls.__startdate: datetime = kwargs.pop('startdate')
+        cls.__deadline: datetime = kwargs.pop('deadline')
 
         return cls
 
@@ -55,3 +61,13 @@ class Task:
     def organization(self) -> int:
         ''' This is the organization of the task '''
         return self.__organization
+
+    @property
+    def startdate(self) -> datetime:
+        ''' This is the start date of the task '''
+        return self.__startdate
+
+    @property
+    def deadline(self) -> datetime:
+        ''' This is the deadline of the task '''
+        return self.__deadline
