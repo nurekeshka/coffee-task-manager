@@ -1,2 +1,5 @@
+''' Common exceptions for all applications '''
+
+
 class EntityDoesNotExist(Exception):
-    pass
+    ''' Exception raised when entity does not exist '''
