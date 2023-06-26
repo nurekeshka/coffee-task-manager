@@ -22,6 +22,7 @@ class User:
             last_name (str): user's last name
             email (str): user's email address
         """
+        cls.__identity: int = kwargs.get('identity')
         cls.__username: str = kwargs.get('username')
         cls.__password: str = kwargs.get('password')
         cls.__first_name: str = kwargs.get('first_name')
@@ -29,6 +30,11 @@ class User:
         cls.__email: str = kwargs.get('email')
 
         return cls
+
+    @property
+    def identity(self):
+        ''' Identity property getter '''
+        return self.__identity
 
     @property
     def username(self):
