@@ -42,7 +42,7 @@ class Task(AbstractEntity):
 
     @property
     def identity(self) -> int:
-        ''' This is the identity of the task '''
+        ''' This is the ID of the task '''
         return self.__identity
 
     @property
