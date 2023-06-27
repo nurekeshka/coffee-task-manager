@@ -29,6 +29,8 @@ class User(AbstractEntity):
         cls.__is_active: bool = params.pop('is_active')
         cls.__date_joined: datetime = params.pop('date_joined')
 
+        return cls
+
     @property
     def identity(self) -> int:
         ''' This is the ID of the user '''
