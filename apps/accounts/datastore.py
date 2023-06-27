@@ -51,10 +51,5 @@ class UserDBRepository:
     @classmethod
     def decode_orm_users(cls, orm_user_queryset: List[UserORM]) -> List[User]:
         ''' Decode multiple users into user entities. '''
-        users_list = list()
-
-        for orm_user in orm_user_queryset:
-            user = cls.decode_orm_user(orm_user)
-            users_list.extend(user)
-
-        return users_list
+        return [cls.decode_orm_user(orm_user)[0]
+                for orm_user in orm_user_queryset]
