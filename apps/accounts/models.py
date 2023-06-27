@@ -1,8 +1,11 @@
 ''' This file contains account models
     related to authentication processes
 '''
-from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.dispatch import receiver
+from django.db import models
+
+from rest_framework.authtoken.models import Token
 
 
 class User(AbstractUser):
@@ -25,3 +28,9 @@ class Organization(models.Model):
 
     def __str__(self) -> str:
         return str(self.name)
+
+
+@receiver(models.signals.post_save, sender=User)
+def create_token(sender, instance=None, created=False, **kwargs):
+    if created:
+        Token.objects.create(user=instance)
