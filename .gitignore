@@ -7,6 +7,8 @@ db.sqlite3
 media
 static/admin/
 static/rest_framework/
+apps/*/migrations/*.py
+!__init__.py
 
 # Backup files # 
 *.bak 
