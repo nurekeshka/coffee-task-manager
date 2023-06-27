@@ -1,9 +1,18 @@
 ''' This file contains entities of tasks application '''
 from datetime import datetime
+import dataclasses
+
+from apps.common.entities import AbstractEntity
 
 
-class Task:
+class Task(AbstractEntity):
     ''' This class represents a task's entity '''
+
+    @dataclasses.dataclass
+    class Dates:
+        ''' Task dates dataclass '''
+        startdate: datetime
+        deadline: datetime
 
     def __init__(self):
         self.__identity: int = None
@@ -15,20 +24,19 @@ class Task:
         self.__status: int = None
         self.__organization: int = None
 
-        self.__startdate: datetime = None
-        self.__deadline: datetime = None
+        self.__calendar = self.Dates(startdate=None, deadline=None)
 
     @classmethod
-    def set_params(cls, **kwargs) -> 'Task':
+    def set_params(cls, **params) -> 'Task':
         ''' Set the parameters of the task object '''
-        cls.__identity: int = kwargs.pop('identity')
-        cls.__name: str = kwargs.pop('name')
-        cls.__description: str = kwargs.pop('description')
-        cls.__assignee: int = kwargs.pop('assignee')
-        cls.__status: int = kwargs.pop('status')
-        cls.__organization: int = kwargs.pop('organization')
-        cls.__startdate: datetime = kwargs.pop('startdate')
-        cls.__deadline: datetime = kwargs.pop('deadline')
+        cls.__identity: int = params.pop('identity')
+        cls.__name: str = params.pop('name')
+        cls.__description: str = params.pop('description')
+        cls.__assignee: int = params.pop('assignee')
+        cls.__status: int = params.pop('status')
+        cls.__organization: int = params.pop('organization')
+        cls.__calendar: cls.Dates = cls.Dates(startdate=params.pop(
+            'startdate'), deadline=params.pop('deadline'))
 
         return cls
 
@@ -63,11 +71,6 @@ class Task:
         return self.__organization
 
     @property
-    def startdate(self) -> datetime:
+    def calendar(self) -> datetime:
         ''' This is the start date of the task '''
-        return self.__startdate
-
-    @property
-    def deadline(self) -> datetime:
-        ''' This is the deadline of the task '''
-        return self.__deadline
+        return self.__calendar
