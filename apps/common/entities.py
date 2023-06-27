@@ -11,7 +11,7 @@ class AbstractEntity(abc.ABC):
     def __init__(self):
         ''' Entity constructor method '''
 
-    @abc.abstractmethod
     @classmethod
+    @abc.abstractmethod
     def set_params(cls, **params) -> 'AbstractEntity':
         ''' This method sets the parameters of the entity '''
