@@ -17,19 +17,18 @@ class User(AbstractEntity):
         self.__is_active: bool = None
         self.__date_joined: datetime = None
 
-    @classmethod
-    def set_params(cls, **params) -> 'User':
+    def set_params(self, **params) -> 'User':
         ''' Set the parameters of the user object. '''
-        cls.__identity: int = params.pop('identity')
-        cls.__username: str = params.pop('username')
-        cls.__first_name: str = params.pop('first_name')
-        cls.__last_name: str = params.pop('last_name')
-        cls.__email: str = params.pop('email')
-        cls.__is_staff: bool = params.pop('is_staff')
-        cls.__is_active: bool = params.pop('is_active')
-        cls.__date_joined: datetime = params.pop('date_joined')
+        self.__identity: int = params.pop('identity')
+        self.__username: str = params.pop('username')
+        self.__first_name: str = params.pop('first_name')
+        self.__last_name: str = params.pop('last_name')
+        self.__email: str = params.pop('email')
+        self.__is_staff: bool = params.pop('is_staff')
+        self.__is_active: bool = params.pop('is_active')
+        self.__date_joined: datetime = params.pop('date_joined')
 
-        return cls
+        return self
 
     @property
     def identity(self) -> int:
