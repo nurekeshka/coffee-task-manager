@@ -5,7 +5,9 @@ from rest_framework import status
 
 from django.urls import reverse
 
-from apps.accounts.models import User, Organization
+from apps.accounts import datastore
+from apps.accounts import entities
+from apps.accounts import models
 
 
 class UserAPITestCase(APITestCase):
@@ -17,15 +19,20 @@ class UserAPITestCase(APITestCase):
     first_name = 'John'
     last_name = 'Doe'
 
-    def test__creation(self):
-        link = reverse('users')
+    def test__datastore_decodes_user(self):
+        user_orm = models.User.objects.create(
+            username=self.username, email=self.email,
+            first_name=self.first_name, last_name=self.last_name)
+        user_entity = datastore.UserDBRepository.get_find_by_id(user_orm.pk)[0]
 
-        response = self.client.post(link, {
-            'username': self.username,
-            'password': self.password,
-        })
+        self.assertEqual(user_orm.pk, user_entity.identity)
 
-        token = Token.objects.get(user__username=self.username)
+    def test__datastore_decodes_users(self):
+        user_orm = models.User.objects.create(
+            username=self.username, email=self.email,
+            first_name=self.first_name, last_name=self.last_name)
 
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(response.json()['authentication-token'], token.key)
+        user_entity = datastore.UserDBRepository.get_find()[0]
+
+        self.assertEqual(len(user_entity), 1)
+        self.assertEqual(user_entity.email, user_orm.email)
